@@ -1,0 +1,159 @@
+# npm i -g eslint-plugin-react
+extends:
+  - eslint:recommended
+  - plugin:react/recommended
+env:
+  browser: true
+globals:
+  DEBUG: true
+  debug: true
+  error: true
+  info: true
+  log: true
+  warn: true
+  dir: true
+  dirxml: true
+  table: true
+  trace: true
+  group: true
+  groupCollapsed: true
+  groupEnd: true
+  clear: true
+  count: true
+  assert: true
+  markTimeline: true
+  profile: true
+  profileEnd: true
+  timeline: true
+  timelineEnd: true
+  time: true
+  timeEnd: true
+  timeStamp: true
+  context: true
+  memory: true
+plugins: 
+  - react
+parserOptions:
+  ecmaVersion: 2017
+  sourceType: module
+  ecmaFeatures:
+    modules: true
+    globalReturn: true
+    jsx: true
+    experimentalObjectRestSpread: true
+rules:
+  react/display-name: warn
+  react/prop-types: 0
+  comma-dangle: [warn, only-multiline]
+  indent: [warn, 2]
+  linebreak-style: [error, unix]
+  no-cond-assign: [error, always]
+  no-console: warn
+  no-constant-condition: error
+  no-control-regex: error
+  no-debugger: error
+  no-dupe-args: error
+  no-dupe-keys: error
+  no-duplicate-case: error
+  no-empty-character-class: error
+  no-empty: error
+  no-ex-assign: error
+  no-extra-boolean-cast: error
+  no-extra-parens: 0
+  no-extra-semi: 0
+  no-func-assign: error
+  no-inner-declarations: [error, functions]
+  no-invalid-regexp: error
+  no-irregular-whitespace: error
+  no-negated-in-lhs: error
+  no-obj-calls: error
+  no-regex-spaces: error
+  no-reserved-keys: 0
+  no-sparse-arrays: error
+  no-unreachable: error
+  quotes: [error, single]
+  semi: 0
+  use-isnan: error
+  valid-jsdoc: 0
+  valid-typeof: error
+  
+  block-scoped-var: 0
+  complexity: [0, 11]
+  consistent-return: error
+  curly: [error, all]
+  default-case: 0
+  dot-notation:
+    - 2
+    - allowKeywords: true
+  eqeqeq: error
+  guard-for-in: 0
+  no-alert: error
+  no-caller: error
+  no-div-regex: 0
+  no-else-return: 0
+  no-eq-null: 0
+  no-eval: error
+  no-extend-native: error
+  no-extra-bind: error
+  no-fallthrough: error
+  no-floating-decimal: 0
+  no-implied-eval: error
+  no-iterator: error
+  no-labels: error
+  no-lone-blocks: error
+  no-loop-func: error
+  no-multi-spaces:
+    - warn
+    - exceptions:
+        Property: true
+        BinaryExpression: true
+        VariableDeclarator: true
+        ImportDeclaration: true
+  no-multi-str: error
+  no-native-reassign: error
+  no-new-func: error
+  no-new-wrappers: error
+  no-new: error
+  no-octal-escape: error
+  no-octal: error
+  no-param-reassign: 0
+  no-process-env: 0
+  no-proto: error
+  no-redeclare: error
+  no-return-assign: error
+  no-script-url: error
+  no-self-compare: 0
+  no-sequences: error
+  no-throw-literal: 0
+  no-unused-expressions: error
+  no-void: 0
+  no-warning-comments:
+    - 0
+    - terms:
+        - todo
+        - fixme
+        - xxx
+      location: start
+  no-with: error
+  radix: 0
+  vars-on-top: 0
+  wrap-iife: 0
+  yoda: [error, never]
+
+  # Strict Mode
+  strict: error
+
+  # Variables
+  no-catch-shadow: error
+  no-delete-var: error
+  no-label-var: error
+  no-shadow-restricted-names: error
+  no-shadow: warn
+  no-undef-init: error
+  no-undef: error
+  no-undefined: 0
+  no-unused-vars:
+    - 2
+    - vars: all
+      args: after-used
+  no-use-before-define: error

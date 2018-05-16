@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "outDir": "module",
+    "declaration": true,
+    "declarationDir": "declaration",
+    "sourceMap": true,
+    "target": "ESNext",
+    "module": "ES2015",
+    "jsx": "react",
+    "strict": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": [
+      "history",
+      "react",
+      "react-dom",
+      "react-hot-loader",
+      "react-redux",
+      "react-router",
+      "react-router-dom",
+      "react-router-redux",
+      "redux",
+      "redux-devtools-extension",
+      "redux-logger"
+    ],
+    "typeRoots": ["/node_modules/@types", "./types"]
+  },
+}

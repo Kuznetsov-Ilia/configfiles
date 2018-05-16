@@ -1,0 +1,116 @@
+# https://docs.gitlab.com/ee/ci/variables/
+# stages: [bundle, build, test, review, deploy]
+image: docker:stable
+stages: [bundle]
+services: ["docker:dind"]
+before_script: [env, ls -la, pwd]
+
+variables:
+  DOCKER_DRIVER: overlay2
+  APP_IMAGE: $CI_REGISTRY_IMAGE/app
+  commit: ${CI_COMMIT_SHA}${CI_COMMIT_REF}
+  tag: $CI_COMMIT_TAG
+
+cache:
+  key: $tag
+  paths: [dist]
+
+assets:
+  stage: bundle
+  image: $CI_REGISTRY_IMAGE/webpack:stable
+  script: [webpack --mode production --config webpack/prod.js]
+  only: [tags]
+  cache:
+    paths: [dist]
+  artifacts:
+    paths: [dist]
+    expire_in: 7 day
+
+.local:
+  variables:
+    d: docker run --rm -v `pwd`:/app $CI_REGISTRY_IMAGE/webpack:stable
+  script:
+    - echo $d
+    - echo $APP_IMAGE:$tag
+    - $d webpack --mode production --config webpack/prod.js
+    - docker build --tag $APP_IMAGE:$tag --tag $APP_IMAGE:latest .
+
+
+
+# .dimage-with-remote-cache:
+#   script:
+#     - docker info
+#     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+#     - docker pull $APP_IMAGE:latest || true
+#     - echo "FROM $CI_REGISTRY_IMAGE/openresty:latest" > Dockerfile
+#     - echo "COPY dist/* /usr/local/openresty/nginx/html/" >> Dockerfile
+#     - echo "EXPOSE 80" >> Dockerfile
+#     - cat Dockerfile
+#     - docker build --cache-from $APP_IMAGE:latest --tag $APP_IMAGE:$tag --tag $APP_IMAGE:latest .
+#     - docker push $APP_IMAGE:$tag
+#     - docker push $APP_IMAGE:latest
+
+
+# containerum:
+#   stage: deploy
+#   only: [tags]
+#   variables:
+#     GIT_STRATEGY: none
+#   image: containerum/chkit:latest
+#   script:
+#     - chkit login -u killxxxvi@mail.ru -p NIfnotixenVobM1 -n openresty
+#     - chkit set image -d openresty -i $APP_IMAGE:$tag -f
+# unit:
+#   stage: test
+#   script: [make unit test]
+#   only: [branches]
+
+# review:
+#   stage: review
+#   script: [ls build, env, make deploy]
+#   environment:
+#     name: review/$CI_COMMIT_REF_NAME
+#     url: http://$CI_COMMIT_REF_NAME.$DOMAIN
+#   only:
+#     refs: [branches]
+#   except: [master]
+
+
+# rspec:
+#   stage: test
+#   script:
+#     - bundle install
+#     - rspec
+#   artifacts:
+#     paths:
+#       - coverage/
+
+# pages:
+#   stage: deploy
+#   dependencies:
+#     - rspec
+#   script:
+#     - mv coverage/ public/
+#   artifacts:
+#     paths:
+#       - public
+#     expire_in: 30 days
+#   only:
+#     - master
+
+
+# dockirize:
+#   stage: trigger
+#   script:
+#     - curl -X POST "JOB-TOKEN: $CI_JOB_TOKEN" -F variables[dir]=dist -F variables[project]=$CI_PROJECT_PATH -F variables[branch]=test -F variables[job]=assets
+
+# 	curl \
+# 		-X POST \
+# 		-F token=${MASTER_TOKEN} \
+# 		-F ref=branches \
+# 		-F variables[SPEC]=app \
+# 		-F variables[PROJECT_ID]=${CI_PROJECT_ID} \
+# 		-F variables[RELEASE]=${CI_COMMIT_SHA}${CI_COMMIT_REF} \
+# 		-F variables[BRANCH]=${CI_COMMIT_REF_NAME} \
+# 	$(pipeline) | jq '.'
+

@@ -1,0 +1,37 @@
+.variables: &variables
+  text: '#333333'
+  text-secondary: '#999999'
+  text-contrast: '#ffffff'
+  bg: '#ffffff'
+  bg-secondary: '#ecc776'
+  bg-contrast: '#333333'
+  icon: '#333333'
+  icon-secondary: '#c7c7c7'
+  icon-contrast: '#ffffff'
+  link: '#0077cc'
+  link-visited: '#6ea4db'
+  link-contrast: '#ffffff'
+  success: '#28c75d'
+  error: '#ff1100'
+  bg-alert: '#fffce0'
+  rating: '#ffd400'
+  notify: '#ffa930'
+  true-black: '#000000'
+  primary: '#168de2'
+  secondary: '#ffa930'
+  border: rgba(0, 0, 0, 0.12)
+  font-family: Helvetica, Arial, sans-serif
+  font-size: 1em
+  line-height: 1.4
+  font-weight: normal
+plugins:
+  postcss-import: {}
+  postcss-flexbox: {}
+  postcss-flexbugs-fixes: {}
+  postcss-nested: {}
+  postcss-custom-properties:
+    preserve: computed
+    noValueNotifications: error
+    variables:
+      <<: *variables
+  autoprefixer: {}

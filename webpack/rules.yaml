@@ -1,0 +1,45 @@
+- test: jsx?
+  include: /src
+  loader: buble-loader
+  query:
+    objectAssign: Object.assign
+- test: tsx?
+  include: /src
+  use:
+    - loader: buble-loader
+      query:
+        objectAssign: Object.assign
+    - loader: ts-loader
+      options:
+        transpileOnly: true
+        experimentalWatchApi: true
+- test: json
+  loader: json-loader
+- test: yaml
+  loader:
+    - json-loader
+    - yaml-ts-loader
+- test: svg
+  use:
+    - svg-sprite-loader
+    - loader: svgo-loader
+      options: {}
+- test: png|jpg|gif
+  loader: file-loader
+- test: css
+  use:
+    - loader: style-loader
+      options:
+        sourceMap: true
+    - loader: css-loader
+      options:
+        modules: true
+        namedExport: true
+        silent: true
+        context: /src
+        localIdentName: '[path]--[name]--[local]'
+        importLoaders: 1
+    - loader: postcss-loader
+      options:
+        config:
+          path: .postcssrc.yml
